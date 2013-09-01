@@ -33,4 +33,4 @@ PRODUCT_NAME := full_bq_Maxwell2Lite
 PRODUCT_DEVICE := bq_Maxwell2Lite
 PRODUCT_BRAND := bq
 PRODUCT_MANUFACTURER := bq
-PRODUCT_MODEL := Maxwell 2 Lite
+PRODUCT_MODEL := bq Maxwell 2 Lite

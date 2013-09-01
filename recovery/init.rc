@@ -1,23 +1,17 @@
 on early-init
     start ueventd
-    insmod /rk30xxnand_ko.ko
+    insmod /rk30xxnand_ko.ko.3.0.8+
+    insmod /rk30xxnand_ko.ko.3.0.36+
 
 on init
     export PATH /sbin:/system/bin
-    export LD_LIBRARY_PATH .:/lib:/sbin
+    export LD_LIBRARY_PATH .:/sbin:/lib
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
-    export EXTERNAL_STORAGE /mnt/external_sd
+    export EXTERNAL_STORAGE /external_sd
 
     symlink /system/etc /etc
 
-    mkdir /boot
-    mkdir /recovery
-    mkdir /internal_sd
-    mkdir /external_sd
-    mkdir /sd-ext
-    mkdir /datadata
-    mkdir /emmc
     mkdir /system
     mkdir /data
     mkdir /cache
@@ -25,9 +19,14 @@ on init
     mkdir /storage 777 system sdcard_r
     
     mkdir /mnt
-    mkdir /mnt/sdcard
-    mkdir /mnt/external_sd
-    symlink /mnt/external_sd /sdcard
+    #mkdir /mnt/sdcard
+    #mkdir /mnt/external_sd
+    
+    symlink /data/media /storage/sdcard0
+    symlink /storage/sdcard0 /mnt/sdcard
+    symlink /storage/sdcard0 /sdcard
+    symlink /external_sd /storage/sdcard1
+    symlink /storage/sdcard1 /mnt/external_sd
 
     chown root shell /tmp
     chmod 0775 /tmp
@@ -39,7 +38,10 @@ on init
     write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
     write /sys/class/android_usb/android0/iProduct ${ro.product.model}
     write /sys/class/android_usb/android0/iSerial ${ro.serialno}
-
+	write /sys/class/android_usb/android0/f_rndis/manufacturer RockChip
+	write /sys/class/android_usb/android0/f_rndis/vendorID 2207
+	write /sys/class/android_usb/android0/f_rndis/wceis 1
+    write /sys/class/android_usb/android0/f_mass_storage/inquiry_string $ro.product.usbfactory
 
 on boot
     setprop UserVolumeLabel "MAXWELL 2 LITE"
@@ -76,7 +78,3 @@ on property:service.adb.root=1
     write /sys/class/android_usb/android0/enable 0
     restart adbd
     write /sys/class/android_usb/android0/enable 1
-
-on property:ro.factory.storage_policy=1
-    mount ext4 mtd@userdata /data wait noatime nodiratime nosuid nodev noauto_da_alloc
-

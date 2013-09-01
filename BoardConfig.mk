@@ -44,10 +44,6 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 734003200
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 6049759232
 BOARD_FLASH_BLOCK_SIZE := 16384
 
-# Bootanimation
-TARGET_BOOTANIMATION_PRELOAD := true
-TARGET_BOOTANIMATION_TEXTURE_CACHE := true
-
 # Avoid the generation of ldrcc instructions
 NEED_WORKAROUND_CORTEX_A9_745320 := true
 
@@ -59,16 +55,26 @@ TARGET_PROVIDES_INIT_RC := true
 TARGET_RECOVERY_INITRC := device/bq/bq_Maxwell2Lite/recovery/init.rc
 TARGET_RECOVERY_PRE_COMMAND := "busybox dd if=/misc.img of=/dev/block/mtdblock0; sync"
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/bq/bq_Maxwell2Lite/recovery/rk_ota_from_target_files
-DEVICE_RESOLUTION := 1024x600
-RECOVERY_SDCARD_ON_DATA := true
 BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun%d/file"
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun%d/file
+BOARD_UMS_2ND_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun1/file"
+#TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun%d/file
 
 TARGET_OTA_ASSERT_DEVICE := bq_Maxwell2Lite
 
+# TWRP flags
+DEVICE_RESOLUTION := 1024x600
+RECOVERY_SDCARD_ON_DATA := true
+
+TW_INTERNAL_STORAGE_PATH := "/sdcard"
+TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
+TW_EXTERNAL_STORAGE_PATH := "/external_sd"
+TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
+
+TW_DEFAULT_EXTERNAL_STORAGE := true
+TW_FLASH_FROM_STORAGE := true
 
 # Graphics
-BOARD_EGL_CFG := device/bq/bq_Maxwell2Lite/config/egl.cfg
+#BOARD_EGL_CFG := device/bq/bq_Maxwell2Lite/config/egl.cfg
 USE_OPENGL_RENDERER := true
 TARGET_DISABLE_TRIPLE_BUFFERING := true
 TARGET_USES_ION := true
@@ -82,7 +88,7 @@ BOARD_NEEDS_MEMORYHEAPPMEM := true
 
 # Web Rendering
 ENABLE_WEBGL := true
-TARGET_FORCE_CPU_UPLOAD := true
+#TARGET_FORCE_CPU_UPLOAD := true
 
 # Bootanimation
 TARGET_BOOTANIMATION_PRELOAD := true

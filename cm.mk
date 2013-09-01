@@ -18,5 +18,5 @@ $(call inherit-product, device/bq/bq_Maxwell2Lite/device_bq_Maxwell2Lite.mk)
 PRODUCT_DEVICE := bq_Maxwell2Lite
 PRODUCT_NAME := full_bq_Maxwell2Lite
 PRODUCT_BRAND := bq
-PRODUCT_MODEL := bq_Maxwell2Lite
+PRODUCT_MODEL := bq Maxwell 2 Lite
 PRODUCT_MANUFACTURER := bq
